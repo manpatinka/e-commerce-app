@@ -1,7 +1,13 @@
 const express = require('express');
 const app = express();
+const cors = require("cors");
+const pool = require("./db");
 
-const PORT = 3000;
+
+app.use(cors());
+app.use(express.json());
+
+const PORT = process.env.PORT || 3000;
 
 app.get('/test', (req, res) => {
     res.json({ ok: true });
