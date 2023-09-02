@@ -24,8 +24,7 @@ CREATE TABLE IF NOT EXISTS customers (
 	password VARCHAR(256),
 	date_created DATE,
 	contact_id INTEGER,
-	first_name VARCHAR(100),
-	last_name VARCHAR(100),
+	username VARCHAR(150),
 	payment_id INTEGER,
 	email VARCHAR(100),
 	google_id VARCHAR(50)
