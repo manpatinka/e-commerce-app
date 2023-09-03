@@ -2,7 +2,7 @@ const db = require('../db');
 const { passwordHash } = require('./authService');
 
 async function getCustomerByUsername(username) {
-    const customer = await db.query('SELECT * FROM customers WHERE last_name = $1', [username]);
+    const customer = await db.query('SELECT * FROM customers WHERE username = $1', [username]);
     return customer.rows[0];
 }
 
