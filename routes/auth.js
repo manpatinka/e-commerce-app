@@ -21,4 +21,20 @@ module.exports = (app, passport) => {
             res.status(500).send('Internal error');
         }
     });
+
+    router.get('/login', (req, res) => {
+        if (!req.customer) return res.status(404).send('Log in first');
+        res.send(`Welcome ${req.customer.username}`)
+    });
+
+    router.post('/login', passport.authenticate('local', { failureMessage: true }), (req, res) => {
+        res.send(`Logged in as ${req.body.username}`);
+    } );
+
+    router.post('/logout', isAuthorized, (req,res) => {
+        req.logout(err => {
+            if (err) return res.send(err)
+            res.send(`Logged out`)
+        });
+    });
 }
