@@ -11,7 +11,7 @@ module.exports = (app, passport) => {
         const { email, username, password } = req.body;
         try {
             const ifCustomerExists = await getCustomerByUsername(username);
-            if(ifCustomerExists) return res.status(409).send(`User "${username}" already exists`);
+            if (ifCustomerExists) return res.status(409).send(`User "${username}" already exists`);
 
             const hashedPassword = await passwordHash(password.toString(), 10);
             const dbRes = await db.query(`insert into customers(email, username, password) values ($1, $2, $3) RETURNING username`, [email, username, hashedPassword]);
@@ -23,18 +23,18 @@ module.exports = (app, passport) => {
     });
 
     router.get('/login', (req, res) => {
-        if (!req.customer) return res.status(404).send('Log in first');
-        res.send(`Welcome ${req.customer.username}`)
-    });
+        if (!req.user) return res.status(404).send('not logged in')
+        res.send(`Hello ${req.user.username}`)
+    })
 
     router.post('/login', passport.authenticate('local', { failureMessage: true }), (req, res) => {
         res.send(`Logged in as ${req.body.username}`);
-    } );
+    })
 
-    router.post('/logout', isAuthorized, (req,res) => {
+    router.post('/logout', isAuthorized, (req, res) => {
         req.logout(err => {
             if (err) return res.send(err)
-            res.send(`Logged out`)
+            res.send(`Logged out successfully`)
         });
-    });
+    })
 }

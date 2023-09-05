@@ -9,12 +9,17 @@ const swaggerLoader = require('./loaders/swagger');
 const passport = require('passport');
 
 const authRouter = require('./routes/auth');
+const productsRouter = require('./routes/products');
 
 const PORT = process.env.PORT || 3000;
 
 expressLoader(app);
 
-authRouter(app);
+passportLoader(app);
+
+authRouter(app, passport);
+productsRouter(app);
+
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
