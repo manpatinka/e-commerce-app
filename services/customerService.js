@@ -30,4 +30,9 @@ async function deleteCustomer(id) {
     return db.query('DELETE FROM customers WHERE id = $1', [id]);
 }
 
-module.exports = { getCustomerByUsername, getCustomerById, updateCustomer, deleteCustomer };
+module.exports = { 
+    getCustomerByUsername, 
+    getCustomerById, 
+    updateCustomer, 
+    deleteCustomer 
+};
