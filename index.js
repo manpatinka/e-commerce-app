@@ -10,6 +10,7 @@ const passport = require('passport');
 
 const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/products');
+const customerRouter = require('./routes/customer');
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,8 +19,10 @@ expressLoader(app);
 passportLoader(app);
 
 authRouter(app, passport);
+
 productsRouter(app);
 
+customerRouter(app);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
