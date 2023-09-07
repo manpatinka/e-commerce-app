@@ -17,6 +17,30 @@ const ordersRouter = require('./routes/orders');
 
 const PORT = process.env.PORT || 3000;
 
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "E-commerce REST API",
+      version: "1.0.0",
+      description: "A simple e-commerce API"
+    },
+    schema: [
+      "http",
+      "https"
+    ],
+    servers: [
+      {
+        url: "https://jims-ecommerce-rest-api.herokuapp.com/",
+      }
+    ],
+  },
+  apis: ["./swagger.yml"]
+}
+const specs = swaggerJsDoc(options);
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs))
+
 expressLoader(app);
 
 passportLoader(app);
